@@ -1,0 +1,16 @@
+diff --git a/core/java/com/android/internal/widget/LockPatternUtils.java b/core/java/com/android/internal/widget/LockPatternUtils.java
+index 98c4697..2944675 100644
+--- a/core/java/com/android/internal/widget/LockPatternUtils.java
++++ b/core/java/com/android/internal/widget/LockPatternUtils.java
+@@ -1100,8 +1100,9 @@ public class LockPatternUtils {
+     }
+ 
+     public boolean isEmergencyCallCapable() {
+-        return mContext.getResources().getBoolean(
+-                com.android.internal.R.bool.config_voice_capable);
++//        return mContext.getResources().getBoolean(
++//                com.android.internal.R.bool.config_voice_capable);
++        return false;
+     }
+ 
+     public boolean isPukUnlockScreenEnable() {

@@ -1,0 +1,14 @@
+diff --git a/core/java/android/view/VolumePanel.java b/core/java/android/view/VolumePanel.java
+index d143451..432a514 100644
+--- a/core/java/android/view/VolumePanel.java
++++ b/core/java/android/view/VolumePanel.java
+@@ -93,7 +93,8 @@ public class VolumePanel extends Handler implements OnSeekBarChangeListener, Vie
+     private static final int BEEP_DURATION = 150;
+     private static final int MAX_VOLUME = 100;
+     private static final int FREE_DELAY = 10000;
+-    private static final int TIMEOUT_DELAY = 3000;
++    private static final int TIMEOUT_DELAY = 1000;
++// change above from 3 to 1 second realdmitchell
+ 
+     private static final int MSG_VOLUME_CHANGED = 0;
+     private static final int MSG_FREE_RESOURCES = 1;
