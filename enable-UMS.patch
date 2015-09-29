@@ -1,0 +1,23 @@
+diff --git a/overlay/frameworks/base/core/res/res/xml/storage_list.xml b/overlay/frameworks/base/core/res/res/xml/storage_list.xml
+index 6a74aa9..714b6d4 100644
+--- a/overlay/frameworks/base/core/res/res/xml/storage_list.xml
++++ b/overlay/frameworks/base/core/res/res/xml/storage_list.xml
+@@ -25,11 +25,15 @@
+         android:storageDescription="@string/storage_internal"
+         android:primary="true"
+         android:emulated="true"
+-        android:mtpReserve="100" />
++        android:mtpReserve="100"
++        android:allowMassStorage="true" />
+     <storage
+         android:mountPoint="/storage/sdcard1"
+         android:storageDescription="@string/storage_sd_card"
++        android:primary="false"
+         android:removable="true"
+-        android:externalApps="true"
+-        android:maxFileSize="4096" />
++        android:maxFileSize="4096" 
++        android:emulated="true"
++        android:allowMassStorage="true" />
+ </StorageList>
++
