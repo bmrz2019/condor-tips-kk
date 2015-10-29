@@ -1,0 +1,42 @@
+diff --git a/core/java/android/view/VolumePanel.java b/core/java/android/view/VolumePanel.java
+index d143451..f570543 100644
+--- a/core/java/android/view/VolumePanel.java
++++ b/core/java/android/view/VolumePanel.java
+@@ -339,12 +339,12 @@ public class VolumePanel extends Handler implements OnSeekBarChangeListener, Vie
+         });
+         // Change some window properties
+         Window window = mDialog.getWindow();
+-        window.setGravity(Gravity.TOP);
++        window.setGravity(Gravity.BOTTOM);
+         LayoutParams lp = window.getAttributes();
+         lp.token = null;
+         // Offset from the top
+-        lp.y = mContext.getResources().getDimensionPixelOffset(
+-                com.android.internal.R.dimen.volume_panel_top);
++//        lp.y = mContext.getResources().getDimensionPixelOffset(
++//                com.android.internal.R.dimen.volume_panel_top);
+         lp.type = LayoutParams.TYPE_VOLUME_OVERLAY;
+         lp.width = LayoutParams.WRAP_CONTENT;
+         lp.height = LayoutParams.WRAP_CONTENT;
+@@ -1201,7 +1201,7 @@ public class VolumePanel extends Handler implements OnSeekBarChangeListener, Vie
+     }
+ 
+     private void applyTranslucentWindow() {
+-        if (!mTranslucentDialog || mRunningDropTranslucentAnimation) return;
++//        if (!mTranslucentDialog || mRunningDropTranslucentAnimation) return;
+ 
+         mPanel.getBackground().setAlpha(TRANSLUCENT_START_LEVEL);
+         mMoreButton.setAlpha(TRANSLUCENT_START_LEVEL);
+diff --git a/core/res/res/values/dimens.xml b/core/res/res/values/dimens.xml
+index fab0aba..4442b8c 100644
+--- a/core/res/res/values/dimens.xml
++++ b/core/res/res/values/dimens.xml
+@@ -219,7 +219,7 @@
+     <dimen name="textview_error_popup_default_width">240dip</dimen>
+ 
+     <!-- Volume panel y offset -->
+-    <dimen name="volume_panel_top">500dp</dimen>
++    <dimen name="volume_panel_top">10dp</dimen>
+ 
+     <!-- Default padding to apply to AppWidgetHostViews containing widgets targeting API level 14 and up. -->
+     <dimen name="default_app_widget_padding_left">8dp</dimen>
