@@ -1,0 +1,1 @@
+echo 255 255 125 > /sys/devices/virtual/graphics/fb0/kcal
