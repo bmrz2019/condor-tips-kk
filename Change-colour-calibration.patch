@@ -1,1 +1,7 @@
+
+if [ -e /sys/devices/virtual/graphics/fb0/kcal ];
+then
+chmod 0666 /sys/devices/virtual/graphics/fb0/kcal;
+fi;
+
 echo 255 255 125 > /sys/devices/virtual/graphics/fb0/kcal
