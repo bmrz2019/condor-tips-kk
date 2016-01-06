@@ -1,0 +1,9 @@
+# The file to edit is vendor/cm/prebuilt/common/etc/init.d/90userinit
+# the lowest value reachable was 5
+# echo 5 >  /sys/devices/virtual/timed_output/vibrator/vtg_level
+
+if [ -e /sys/devices/virtual/timed_output/vibrator/vtg_level ];
+then
+chmod 0666 /sys/devices/virtual/timed_output/vibrator/vtg_level
+fi;
+
