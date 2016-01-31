@@ -1,0 +1,29 @@
+diff --git a/core/res/res/values/cm_symbols.xml b/core/res/res/values/cm_symbols.xml
+index 6ca673f..ba709aa 100644
+--- a/core/res/res/values/cm_symbols.xml
++++ b/core/res/res/values/cm_symbols.xml
+@@ -106,6 +106,8 @@
+     <!-- Config.xml entries -->
+     <java-symbol type="string" name="config_deviceKeyHandlerLib" />
+     <java-symbol type="string" name="config_deviceKeyHandlerClass" />
++    <java-symbol type="string" name="config_legacyUmsLunFile" />
++
+ 
+     <!-- From various Material changes -->
+     <java-symbol type="array" name="config_sms_convert_destination_number_support" />
+diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
+index 31ad7aa..ab528bd 100755
+--- a/core/res/res/values/config.xml
++++ b/core/res/res/values/config.xml
+@@ -2340,6 +2340,11 @@
+     <!-- Boolean to enable stk functionality on Samsung phones -->
+     <bool name="config_samsung_stk">false</bool>
+ 
++    <!-- LUN file to be used by legacy USB manager.
++                  The existence of this file will be used to determine in the
++         legacy USB manager should be started. -->
++    <string name="config_legacyUmsLunFile">/sys/devices/platform/usb_mass_storage/lun0/file</string>
++
+     <!-- Defines the system property to set for performance profile xe: sys.cpu.modes. Leave it
+          blank if the device do not support performance profiles -->
+     <string name="config_perf_profile_prop" translatable="false"></string>

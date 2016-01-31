@@ -1,0 +1,13 @@
+diff --git a/services/core/java/com/android/server/power/ShutdownThread.java b/services/core/java/com/android/server/power/ShutdownThread.java
+index 49ae3d8..e82dde0 100644
+--- a/services/core/java/com/android/server/power/ShutdownThread.java
++++ b/services/core/java/com/android/server/power/ShutdownThread.java
+@@ -83,7 +83,7 @@ public final class ShutdownThread extends Thread {
+     private static final String SOFT_REBOOT = "soft_reboot";
+ 
+     // length of vibration before shutting down
+-    private static final int SHUTDOWN_VIBRATE_MS = 500;
++    private static final int SHUTDOWN_VIBRATE_MS = 5;
+     
+     // state tracking
+     private static Object sIsStartedGuard = new Object();
