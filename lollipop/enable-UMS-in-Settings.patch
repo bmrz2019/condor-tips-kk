@@ -1,0 +1,45 @@
+diff --git a/res/values/cm_strings.xml b/res/values/cm_strings.xml
+index 7b560ce..585aa8c 100644
+--- a/res/values/cm_strings.xml
++++ b/res/values/cm_strings.xml
+@@ -369,6 +369,9 @@
+     <string name="development_shortcut_title">Development shortcut</string>
+     <string name="development_shortcut_summary">Enable app management shortcuts in recent apps list</string>
+ 
++    <string name="usb_mass_storage_title">Mass storage (UMS)</string>
++    <string name="usb_mass_storage_summary">Lets you transfer files between your computer and SD card by mounting it as a flash device</string>
++
+     <!-- tap-to-sleep -->
+     <string name="double_tap_to_sleep_title">Double-tap to sleep</string>
+     <string name="double_tap_to_sleep_summary">Double-tap on the status bar to turn off the display</string>
+diff --git a/src/com/android/settings/deviceinfo/UsbSettings.java b/src/com/android/settings/deviceinfo/UsbSettings.java
+index 3528383..bfbc085 100644
+--- a/src/com/android/settings/deviceinfo/UsbSettings.java
++++ b/src/com/android/settings/deviceinfo/UsbSettings.java
+@@ -55,6 +55,8 @@ public class UsbSettings extends SettingsPreferenceFragment {
+     private static final String KEY_PTP = "usb_ptp";
+     private static final String KEY_CHARGING = "usb_charging";
+     private static final String KEY_SDCARD = "usb_sdcard";
++    private static final String KEY_MASS_STORAGE = "usb_mass_storage";
++
+ 
+     // We could not know what's the usb default mode config of each device, which
+     // may be defined in some sh source file. So here use a hard code for reference,
+@@ -70,6 +72,8 @@ public class UsbSettings extends SettingsPreferenceFragment {
+     private CheckBoxPreference mPtp;
+     private CheckBoxPreference mCharging;
+     private CheckBoxPreference mSDCard;
++    private CheckBoxPreference mUms;
++
+ 
+     private boolean mUsbAccessoryMode;
+     private boolean mOperationInProgress = false;
+@@ -127,6 +131,8 @@ public class UsbSettings extends SettingsPreferenceFragment {
+         mPtp = (CheckBoxPreference)root.findPreference(KEY_PTP);
+         mCharging = (CheckBoxPreference)root.findPreference(KEY_CHARGING);
+         mSDCard = (CheckBoxPreference)root.findPreference(KEY_SDCARD);
++        mUms = (CheckBoxPreference)root.findPreference(KEY_MASS_STORAGE);
++
+         //not to show this mode if mass storage is not supported
+         if (!isMassStorageEnabled()) {
+             Log.d(TAG, "createPreferenceHierarchy mass_storage enabled");
