@@ -1,0 +1,84 @@
+diff --git a/overlay/frameworks/base/core/res/res/xml/storage_list.xml b/overlay/frameworks/base/core/res/res/xml/storage_list.xml
+index 80f3df1..1e65394 100644
+--- a/overlay/frameworks/base/core/res/res/xml/storage_list.xml
++++ b/overlay/frameworks/base/core/res/res/xml/storage_list.xml
+@@ -25,10 +25,14 @@
+         android:storageDescription="@string/storage_internal"
+         android:primary="true"
+         android:emulated="true"
++        android:removable="false"
+         android:mtpReserve="100" />
+     <storage
+         android:mountPoint="/storage/sdcard1"
+         android:storageDescription="@string/storage_sd_card"
++        android:primary="false"
++        android:emulated="false"
+         android:removable="true"
++        android:allowMassStorage="true"
+         android:maxFileSize="4096" />
+ </StorageList>
+diff --git a/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml b/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
+index 3bc7e48..07f7272 100644
+--- a/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
++++ b/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
+@@ -25,4 +25,13 @@
+ 
+     <!-- 30 seconds for default screen timeout -->
+     <integer name="def_screen_off_timeout">30000</integer>
++
++    <!-- Default value of Settings.System.ENABLE_FORWARD_LOOKUP -->
++    <integer name="def_forward_lookup">0</integer>
++
++    <!-- Default value of Settings.System.ENABLE_PEOPLE_LOOKUP -->
++    <integer name="def_people_lookup">0</integer>
++
++    <!-- Default value of Settings.System.ENABLE_REVERSE_LOOKUP -->
++    <integer name="def_reverse_lookup">0</integer>
+ </resources>
+diff --git a/ramdisk/init.qcom.rc b/ramdisk/init.qcom.rc
+index 7bcc112..9c58b86 100755
+--- a/ramdisk/init.qcom.rc
++++ b/ramdisk/init.qcom.rc
+@@ -26,7 +26,7 @@
+ #
+ 
+ import init.qcom.usb.rc
+-import init.qcom.power.rc
++#import init.qcom.power.rc
+ 
+ on early-init
+     # Create firmware mount point
+diff --git a/ramdisk/init.qcom.usb.rc b/ramdisk/init.qcom.usb.rc
+index ec259b5..4482332 100755
+--- a/ramdisk/init.qcom.usb.rc
++++ b/ramdisk/init.qcom.usb.rc
+@@ -93,6 +93,29 @@ on property:sys.usb.config=mtp
+     write /sys/class/android_usb/android0/enable 1
+     setprop sys.usb.state ${sys.usb.config}
+ 
++on property:sys.usb.config=mass_storage,adb
++    write /sys/class/android_usb/android0/enable 0
++    write /sys/class/android_usb/android0/bDeviceClass 0
++    write /sys/class/android_usb/android0/bDeviceSubClass 0
++    write /sys/class/android_usb/android0/bDeviceProtocol 0
++    write /sys/class/android_usb/android0/idVendor 0x22b8
++    write /sys/class/android_usb/android0/idProduct 0x2e76
++    write /sys/class/android_usb/android0/functions mass_storage,adb
++    write /sys/class/android_usb/android0/enable 1
++    start adbd
++    setprop sys.usb.state ${sys.usb.config}
++
++on property:sys.usb.config=mass_storage
++    write /sys/class/android_usb/android0/enable 0
++    write /sys/class/android_usb/android0/bDeviceClass 0
++    write /sys/class/android_usb/android0/bDeviceSubClass 0
++    write /sys/class/android_usb/android0/bDeviceProtocol 0
++    write /sys/class/android_usb/android0/idVendor 0x22b8
++    write /sys/class/android_usb/android0/idProduct 0x2e76
++    write /sys/class/android_usb/android0/functions mass_storage
++    write /sys/class/android_usb/android0/enable 1
++    setprop sys.usb.state ${sys.usb.config}
++
+ on property:sys.usb.config=mtp,adb
+     write /sys/class/android_usb/android0/enable 0
+     write /sys/class/android_usb/android0/bDeviceClass 0

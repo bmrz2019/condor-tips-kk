@@ -1,0 +1,18 @@
+diff --git a/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml b/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
+index 3bc7e48..07f7272 100644
+--- a/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
++++ b/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
+@@ -25,4 +25,13 @@
+ 
+     <!-- 30 seconds for default screen timeout -->
+     <integer name="def_screen_off_timeout">30000</integer>
++
++    <!-- Default value of Settings.System.ENABLE_FORWARD_LOOKUP -->
++    <integer name="def_forward_lookup">0</integer>
++
++    <!-- Default value of Settings.System.ENABLE_PEOPLE_LOOKUP -->
++    <integer name="def_people_lookup">0</integer>
++
++    <!-- Default value of Settings.System.ENABLE_REVERSE_LOOKUP -->
++    <integer name="def_reverse_lookup">0</integer>
+ </resources>
