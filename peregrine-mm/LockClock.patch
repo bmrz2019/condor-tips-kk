@@ -1,0 +1,74 @@
+diff --git a/Android.mk b/Android.mk
+index db27b6f..fdf270e 100644
+--- a/Android.mk
++++ b/Android.mk
+@@ -25,14 +25,14 @@ LOCAL_PROGUARD_FLAG_FILES := proguard.flags
+ LOCAL_AAPT_INCLUDE_ALL_RESOURCES := true
+ 
+ # Include res dir from chips
+-google_play_dir := ../../../external/google/google_play_services/libproject/google-play-services_lib/res
++#google_play_dir := ../../../external/google/google_play_services/libproject/google-play-services_lib/res
+ res_dir := $(google_play_dir) res
+ 
+ LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, $(res_dir))
+ LOCAL_AAPT_FLAGS := --auto-add-overlay
+-LOCAL_AAPT_FLAGS += --extra-packages com.google.android.gms
++#LOCAL_AAPT_FLAGS += --extra-packages com.google.android.gms
+ 
+-LOCAL_STATIC_JAVA_LIBRARIES := play \
++LOCAL_STATIC_JAVA_LIBRARIES :=  \
+                                org.apache.http.legacy
+ 
+ include $(BUILD_PACKAGE)
+diff --git a/AndroidManifest.xml b/AndroidManifest.xml
+index 5b75d91..94e1a90 100644
+--- a/AndroidManifest.xml
++++ b/AndroidManifest.xml
+@@ -43,9 +43,6 @@
+         android:theme="@style/Theme.Main"
+         android:name=".WidgetApplication" >
+ 
+-        <meta-data android:name="com.google.android.gms.version"
+-                   android:value="@integer/google_play_services_version" />
+-
+         <activity
+             android:name=".preference.Preferences"
+             android:configChanges="orientation|screenSize"
+diff --git a/src/com/cyanogenmod/lockclock/weather/WeatherUpdateService.java b/src/com/cyanogenmod/lockclock/weather/WeatherUpdateService.java
+index ea0b89c..d97fcc2 100644
+--- a/src/com/cyanogenmod/lockclock/weather/WeatherUpdateService.java
++++ b/src/com/cyanogenmod/lockclock/weather/WeatherUpdateService.java
+@@ -41,8 +41,6 @@ import com.cyanogenmod.lockclock.misc.Preferences;
+ import com.cyanogenmod.lockclock.misc.WidgetUtils;
+ import com.cyanogenmod.lockclock.preference.WeatherPreferences;
+ 
+-import com.google.android.gms.common.ConnectionResult;
+-import com.google.android.gms.common.GooglePlayServicesUtil;
+ 
+ import java.util.Date;
+ 
+@@ -195,11 +193,6 @@ public class WeatherUpdateService extends Service {
+                 String locationProvider = lm.getBestProvider(sLocationCriteria, true);
+                 if (TextUtils.isEmpty(locationProvider)) {
+                     Log.e(TAG, "No available location providers matching criteria.");
+-                } else if (isGooglePlayServicesAvailable()
+-                        && locationProvider.equals(LocationManager.GPS_PROVIDER)) {
+-                    // Since Google Play services is available,
+-                    // let's conserve battery power and not depend on the device's GPS.
+-                    Log.i(TAG, "Google Play Services available; Ignoring GPS provider.");
+                 } else {
+                     WeatherLocationListener.registerIfNeeded(mContext, locationProvider);
+                 }
+@@ -208,12 +201,6 @@ public class WeatherUpdateService extends Service {
+             return location;
+         }
+ 
+-        private boolean isGooglePlayServicesAvailable() {
+-            int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(mContext);
+-            return result == ConnectionResult.SUCCESS
+-                    || result == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED;
+-        }
+-
+         @Override
+         protected WeatherInfo doInBackground(Void... params) {
+             WeatherProvider provider = Preferences.weatherProvider(mContext);
