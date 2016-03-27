@@ -1,0 +1,28 @@
+diff --git a/src/com/android/browser/Tab.java b/src/com/android/browser/Tab.java
+index 9fead0f..25cbb76 100644
+--- a/src/com/android/browser/Tab.java
++++ b/src/com/android/browser/Tab.java
+@@ -1391,6 +1391,8 @@ class Tab implements PictureListener {
+ 				"faststart.ru",
+ 				"fastwebcounter.com",
+ 				"fathomseo.com",
++				"fbcdn.net",
++				"fb.com",
+ 				"fcstats.altervista.org",
+ 				"fc.webmasterpro.de",
+ 				"feedcat.net",
+@@ -1510,7 +1512,14 @@ class Tab implements PictureListener {
+ 				"go-mpulse.net",
+ 				"goneviral.com",
+ 				"goodcounter.org",
++				"googleadservices.com",
+ 				"google-analytics.com",
++				"googleapis.com",
++				"google-pr7.de",
++				"googlerank.info",
++				"google-rank.org",
++				"googlesyndication.com",
++				"googletagservices.com",
+ 				"gooo.al",
+ 				"gosquared.com",
+ 				"gostats.com",

@@ -1,6 +1,6 @@
-1. Ecall
-2. shutdown
-3. volume slider
+1. Ecall             packages/Keyguard/src/com/android/keyguard/EmergencyButton.java
+2. shutdown          services/core/java/com/android/server/power/ShutdownThread.java
+3. volume slider     packages/SystemUI/src/com/android/systemui/volume/VolumeDialog.java
 4. voip check
 5. wallpapers
-6. Apollo -recent days 3
+6. Apollo -recent days 3    src/com/cyanogenmod/eleven/loaders/LastAddedLoader.java
