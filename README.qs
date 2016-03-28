@@ -18,3 +18,8 @@ statusbar/phone/NotificationPanelView.java
             return vel > 0;
         }
     }
+
+
+
+if (mStatusBarState == StatusBarState.SHADE_LOCKED
+                && statusBarState == StatusBarState.KEYGUARD)
