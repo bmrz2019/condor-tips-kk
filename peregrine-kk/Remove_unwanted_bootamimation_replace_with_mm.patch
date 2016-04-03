@@ -1,0 +1,123 @@
+diff --git a/config/common.mk b/config/common.mk
+index 0e6781f..2ff80aa 100644
+--- a/config/common.mk
++++ b/config/common.mk
+@@ -3,7 +3,38 @@ PRODUCT_BRAND ?= cyanogenmod
+ SUPERUSER_EMBEDDED := true
+ SUPERUSER_PACKAGE_PREFIX := com.android.settings.cyanogenmod.superuser
+ 
+-PRODUCT_BOOTANIMATION := vendor/cm/prebuilt/common/bootanimation/720.zip
++ifneq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
++# determine the smaller dimension
++TARGET_BOOTANIMATION_SIZE := $(shell \
++  if [ $(TARGET_SCREEN_WIDTH) -lt $(TARGET_SCREEN_HEIGHT) ]; then \
++    echo $(TARGET_SCREEN_WIDTH); \
++  else \
++    echo $(TARGET_SCREEN_HEIGHT); \
++  fi )
++
++# get a sorted list of the sizes
++bootanimation_sizes := $(subst .zip,, $(shell ls vendor/cm/prebuilt/common/bootanimation))
++bootanimation_sizes := $(shell echo -e $(subst $(space),'\n',$(bootanimation_sizes)) | sort -rn)
++
++# find the appropriate size and set
++define check_and_set_bootanimation
++$(eval TARGET_BOOTANIMATION_NAME := $(shell \
++  if [ -z "$(TARGET_BOOTANIMATION_NAME)" ]; then
++    if [ $(1) -le $(TARGET_BOOTANIMATION_SIZE) ]; then \
++      echo $(1); \
++      exit 0; \
++    fi;
++  fi;
++  echo $(TARGET_BOOTANIMATION_NAME); ))
++endef
++$(foreach size,$(bootanimation_sizes), $(call check_and_set_bootanimation,$(size)))
++
++ifeq ($(TARGET_BOOTANIMATION_HALF_RES),true)
++PRODUCT_BOOTANIMATION := vendor/cm/prebuilt/common/bootanimation/halfres/$(TARGET_BOOTANIMATION_NAME).zip
++else
++PRODUCT_BOOTANIMATION := vendor/cm/prebuilt/common/bootanimation/$(TARGET_BOOTANIMATION_NAME).zip
++endif
++endif
+ 
+ ifdef CM_NIGHTLY
+ PRODUCT_PROPERTY_OVERRIDES += \
+diff --git a/prebuilt/common/bootanimation/1080.zip b/prebuilt/common/bootanimation/1080.zip
+new file mode 100644
+index 0000000..135cc91
+Binary files /dev/null and b/prebuilt/common/bootanimation/1080.zip differ
+diff --git a/prebuilt/common/bootanimation/1200.zip b/prebuilt/common/bootanimation/1200.zip
+new file mode 100644
+index 0000000..8d2bf95
+Binary files /dev/null and b/prebuilt/common/bootanimation/1200.zip differ
+diff --git a/prebuilt/common/bootanimation/1440.zip b/prebuilt/common/bootanimation/1440.zip
+new file mode 100644
+index 0000000..ac2b25d
+Binary files /dev/null and b/prebuilt/common/bootanimation/1440.zip differ
+diff --git a/prebuilt/common/bootanimation/1600.zip b/prebuilt/common/bootanimation/1600.zip
+new file mode 100644
+index 0000000..a9cf275
+Binary files /dev/null and b/prebuilt/common/bootanimation/1600.zip differ
+diff --git a/prebuilt/common/bootanimation/240.zip b/prebuilt/common/bootanimation/240.zip
+new file mode 100644
+index 0000000..1b4665f
+Binary files /dev/null and b/prebuilt/common/bootanimation/240.zip differ
+diff --git a/prebuilt/common/bootanimation/320.zip b/prebuilt/common/bootanimation/320.zip
+new file mode 100644
+index 0000000..7e6f0d6
+Binary files /dev/null and b/prebuilt/common/bootanimation/320.zip differ
+diff --git a/prebuilt/common/bootanimation/360.zip b/prebuilt/common/bootanimation/360.zip
+new file mode 100644
+index 0000000..9b7e948
+Binary files /dev/null and b/prebuilt/common/bootanimation/360.zip differ
+diff --git a/prebuilt/common/bootanimation/480.zip b/prebuilt/common/bootanimation/480.zip
+new file mode 100644
+index 0000000..dd8c494
+Binary files /dev/null and b/prebuilt/common/bootanimation/480.zip differ
+diff --git a/prebuilt/common/bootanimation/540.zip b/prebuilt/common/bootanimation/540.zip
+new file mode 100644
+index 0000000..1fab3c2
+Binary files /dev/null and b/prebuilt/common/bootanimation/540.zip differ
+diff --git a/prebuilt/common/bootanimation/600.zip b/prebuilt/common/bootanimation/600.zip
+new file mode 100644
+index 0000000..430687d
+Binary files /dev/null and b/prebuilt/common/bootanimation/600.zip differ
+diff --git a/prebuilt/common/bootanimation/720.zip b/prebuilt/common/bootanimation/720.zip
+index d2da3ed..ca714e9 100644
+Binary files a/prebuilt/common/bootanimation/720.zip and b/prebuilt/common/bootanimation/720.zip differ
+diff --git a/prebuilt/common/bootanimation/768.zip b/prebuilt/common/bootanimation/768.zip
+new file mode 100644
+index 0000000..18012b7
+Binary files /dev/null and b/prebuilt/common/bootanimation/768.zip differ
+diff --git a/prebuilt/common/bootanimation/800.zip b/prebuilt/common/bootanimation/800.zip
+new file mode 100644
+index 0000000..9a5accf
+Binary files /dev/null and b/prebuilt/common/bootanimation/800.zip differ
+diff --git a/prebuilt/common/bootanimation/halfres/1440.zip b/prebuilt/common/bootanimation/halfres/1440.zip
+new file mode 100644
+index 0000000..7dc49d4
+Binary files /dev/null and b/prebuilt/common/bootanimation/halfres/1440.zip differ
+diff --git a/prebuilt/common/bootanimation/halfres/240.zip b/prebuilt/common/bootanimation/halfres/240.zip
+new file mode 100644
+index 0000000..a413bdc
+Binary files /dev/null and b/prebuilt/common/bootanimation/halfres/240.zip differ
+diff --git a/prebuilt/common/bootanimation/halfres/320.zip b/prebuilt/common/bootanimation/halfres/320.zip
+new file mode 100644
+index 0000000..3e6ab2c
+Binary files /dev/null and b/prebuilt/common/bootanimation/halfres/320.zip differ
+diff --git a/prebuilt/common/bootanimation/halfres/360.zip b/prebuilt/common/bootanimation/halfres/360.zip
+new file mode 100644
+index 0000000..aeea7e0
+Binary files /dev/null and b/prebuilt/common/bootanimation/halfres/360.zip differ
+diff --git a/prebuilt/common/bootanimation/halfres/480.zip b/prebuilt/common/bootanimation/halfres/480.zip
+new file mode 100644
+index 0000000..ae6187c
+Binary files /dev/null and b/prebuilt/common/bootanimation/halfres/480.zip differ
+diff --git a/prebuilt/common/bootanimation/halfres/540.zip b/prebuilt/common/bootanimation/halfres/540.zip
+new file mode 100644
+index 0000000..7a30066
+Binary files /dev/null and b/prebuilt/common/bootanimation/halfres/540.zip differ
+diff --git a/prebuilt/common/bootanimation/halfres/600.zip b/prebuilt/common/bootanimation/halfres/600.zip
+new file mode 100644
+index 0000000..cc40702
+Binary files /dev/null and b/prebuilt/common/bootanimation/halfres/600.zip differ

@@ -1,0 +1,16 @@
+diff --git a/config/common.mk b/config/common.mk
+index 0e6781f..60a9d53 100644
+--- a/config/common.mk
++++ b/config/common.mk
+@@ -183,7 +183,7 @@ PRODUCT_PACKAGES += \
+     su
+ 
+ # Terminal Emulator
+-PRODUCT_COPY_FILES +=  \
++#PRODUCT_COPY_FILES +=  \
+     vendor/cm/proprietary/Term.apk:system/app/Term.apk \
+     vendor/cm/proprietary/lib/armeabi/libjackpal-androidterm5.so:system/lib/libjackpal-androidterm5.so \
+     vendor/cm/proprietary/lib/armeabi/libjackpal-termexec2.so:system/lib/libjackpal-termexec2.so
+diff --git a/overlay/common/frameworks/base/core/res/res/drawable-xhdpi/default_wallpaper.jpg b/overlay/common/frameworks/base/core/res/res/drawable-xhdpi/default_wallpaper.jpg
+index 0eb5192..e5fc3ce 100644
+Binary files a/overlay/common/frameworks/base/core/res/res/drawable-xhdpi/default_wallpaper.jpg and b/overlay/common/frameworks/base/core/res/res/drawable-xhdpi/default_wallpaper.jpg differ
