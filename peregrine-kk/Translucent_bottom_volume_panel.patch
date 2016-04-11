@@ -1,0 +1,40 @@
+diff --git a/java/android/view/VolumePanel.java b/java/android/view/VolumePanel.java
+index a23bc60..9a324a0 100644
+--- a/java/android/view/VolumePanel.java
++++ b/java/android/view/VolumePanel.java
+@@ -339,12 +339,10 @@ public class VolumePanel extends Handler implements OnSeekBarChangeListener, Vie
+         });
+         // Change some window properties
+         Window window = mDialog.getWindow();
+-        window.setGravity(Gravity.TOP);
++        window.setGravity(Gravity.BOTTOM);
+         LayoutParams lp = window.getAttributes();
+         lp.token = null;
+         // Offset from the top
+-        lp.y = mContext.getResources().getDimensionPixelOffset(
+-                com.android.internal.R.dimen.volume_panel_top);
+         lp.type = LayoutParams.TYPE_VOLUME_OVERLAY;
+         lp.width = LayoutParams.WRAP_CONTENT;
+         lp.height = LayoutParams.WRAP_CONTENT;
+@@ -1201,8 +1199,6 @@ public class VolumePanel extends Handler implements OnSeekBarChangeListener, Vie
+     }
+ 
+     private void applyTranslucentWindow() {
+-        if (!mTranslucentDialog || mRunningDropTranslucentAnimation) return;
+-
+         mPanel.getBackground().setAlpha(TRANSLUCENT_START_LEVEL);
+         mMoreButton.setAlpha(TRANSLUCENT_START_LEVEL);
+         mDivider.setAlpha(TRANSLUCENT_START_LEVEL);
+diff --git a/res/res/values/dimens.xml b/res/res/values/dimens.xml
+index 710c64c..e0af93d 100644
+--- a/res/res/values/dimens.xml
++++ b/res/res/values/dimens.xml
+@@ -219,7 +219,7 @@
+     <dimen name="textview_error_popup_default_width">240dip</dimen>
+ 
+     <!-- Volume panel y offset -->
+-    <dimen name="volume_panel_top">500dp</dimen>
++    <dimen name="volume_panel_top">10dp</dimen>
+ 
+     <!-- Default padding to apply to AppWidgetHostViews containing widgets targeting API level 14 and up. -->
+     <dimen name="default_app_widget_padding_left">8dp</dimen>
