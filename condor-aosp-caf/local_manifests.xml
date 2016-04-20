@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+<remote  name="git"
+           fetch="https://github.com" />
+
+<!--Add Device Condor[Moto-E] Otus[Moto-E2]-->
+<project path="device/motorola/condor" name="shubhmg/android_device_motorola_condor" remote="git" revision="aosp" />
+<project path="device/motorola/otus" name="shubhmg/android_device_motorola_otus" remote="git" revision="aosp" />
+<project path="device/motorola/msm8610-common" name="shubhmg/android_device_motorola_msm8610-common" remote="git" revision="aosp" />
+<project path="kernel/motorola/msm8610" name="CyanogenMod/android_kernel_motorola_msm8610" remote="git" revision="cm-13.0"/>
+<project path="vendor/motorola" name="TheMuppets/proprietary_vendor_motorola" remote="git" revision="cm-13.0" />
+
+<!--Camera dependency-->
+<project path="external/sony/boringssl-compat" name="CyanogenMod/android_external_sony_boringssl-compat" remote="git" revision="cm-13.0" />
+
+<!--Snap camera-->
+<project path="packages/apps/Snap" name="CyanogenMod/android_packages_apps_Snap" remote="git" revision="cm-13.0" />
+
+<!--Add HALS-->
+<project path="hardware/qcom/audio-caf/msm8974" name="CyanogenMod/android_hardware_qcom_audio" remote="git" revision="cm-13.0-caf-8974" />
+<project path="hardware/qcom/media-caf/msm8974" name="CyanogenMod/android_hardware_qcom_media" remote="git" revision="cm-13.0-caf-8974" />
+<project path="hardware/qcom/display-caf/msm8974" name="CyanogenMod/android_hardware_qcom_display" remote="git" revision="cm-13.0-caf-8974" />
+
+<!-- Use my repos with fixes and additions-->
+<remove-project name="platform_frameworks_base" path="frameworks/base" remote="github" />
+<project name="shubhmg/platform_frameworks_base" path="frameworks/base" remote="git" revision="mm6.0" />
+
+<remove-project name="platform_packages_apps_Settings" path="packages/apps/Settings" remote="github" />
+<project name="shubhmg/platform_packages_apps_Settings" path="packages/apps/Settings" remote="git" revision="mm6.0" />
+
+<remove-project name="platform_vendor_aosp" path="vendor/aosp" remote="github" />
+<project name="shubhmg/platform_vendor_aosp" path="vendor/aosp" remote="git" revision="mm6.0" />
+
+<remove-project name="platform_build" path="build" remote="github" />
+<project name="shubhmg/platform_build" path="build" remote="git" revision="mm6.0" >
+<copyfile src="core/root.mk" dest="Makefile" />
+</project>
+
+<!--Layers Specific(Thanks Deepak Sharma)-->
+<remove-project name="platform/packages/apps/CellBroadcastReceiver" />
+<project name="TechExhibeo/platform_packages_apps_CellBroadcastReceiver" path="packages/apps/CellBroadcastReceiver" remote="git" revision="mm6.0" />
+ 
+<remove-project name="platform/packages/apps/DeskClock" />
+<project name="shubhmg/platform_packages_apps_DeskClock" path="packages/apps/DeskClock" remote="git" revision="mm6.0" />
+ 
+<remove-project name="platform/packages/apps/Dialer" />
+<project name="TechExhibeo/platform_packages_apps_Dialer" path="packages/apps/Dialer" remote="git" revision="mm6.0" />
+ 
+<remove-project name="platform/packages/apps/InCallUI" />
+<project name="TechExhibeo/platform_packages_apps_InCallUI" path="packages/apps/InCallUI" remote="git" revision="mm6.0" /> 
+ 
+<remove-project name="platform/packages/apps/Contacts" />
+<project name="TechExhibeo/platform_packages_apps_Contacts" path="packages/apps/Contacts" remote="git" revision="mm6.0" />
+ 
+<remove-project name="platform/packages/apps/ContactsCommon" />
+<project name="TechExhibeo/platform_packages_apps_ContactsCommon" path="packages/apps/ContactsCommon" remote="git" revision="mm6.0" /> 
+</manifest>
