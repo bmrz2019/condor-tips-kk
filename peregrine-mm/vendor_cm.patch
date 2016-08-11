@@ -1,0 +1,119 @@
+diff --git a/config/common.mk b/config/common.mk
+index 297ae1c..0f748cd 100644
+--- a/config/common.mk
++++ b/config/common.mk
+@@ -155,7 +155,6 @@ PRODUCT_PACKAGES += \
+     CMFileManager \
+     Eleven \
+     LockClock \
+-    CMUpdater \
+     CyanogenSetupWizard \
+     CMSettingsProvider \
+     ExactCalculator \
+diff --git a/prebuilt/common/bootanimation/1080.zip b/prebuilt/common/bootanimation/1080.zip
+deleted file mode 100644
+index c2d29e2..0000000
+Binary files a/prebuilt/common/bootanimation/1080.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/1200.zip b/prebuilt/common/bootanimation/1200.zip
+deleted file mode 100644
+index 95b1fdc..0000000
+Binary files a/prebuilt/common/bootanimation/1200.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/1440.zip b/prebuilt/common/bootanimation/1440.zip
+deleted file mode 100644
+index d9c6dc3..0000000
+Binary files a/prebuilt/common/bootanimation/1440.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/1536.zip b/prebuilt/common/bootanimation/1536.zip
+deleted file mode 100644
+index a2fc1b6..0000000
+Binary files a/prebuilt/common/bootanimation/1536.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/1600.zip b/prebuilt/common/bootanimation/1600.zip
+deleted file mode 100644
+index f008848..0000000
+Binary files a/prebuilt/common/bootanimation/1600.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/240.zip b/prebuilt/common/bootanimation/240.zip
+deleted file mode 100644
+index 94b671e..0000000
+Binary files a/prebuilt/common/bootanimation/240.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/320.zip b/prebuilt/common/bootanimation/320.zip
+deleted file mode 100644
+index 7a9f86d..0000000
+Binary files a/prebuilt/common/bootanimation/320.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/360.zip b/prebuilt/common/bootanimation/360.zip
+deleted file mode 100644
+index 1906137..0000000
+Binary files a/prebuilt/common/bootanimation/360.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/480.zip b/prebuilt/common/bootanimation/480.zip
+deleted file mode 100644
+index de6d2fa..0000000
+Binary files a/prebuilt/common/bootanimation/480.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/540.zip b/prebuilt/common/bootanimation/540.zip
+deleted file mode 100644
+index 3458bbb..0000000
+Binary files a/prebuilt/common/bootanimation/540.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/600.zip b/prebuilt/common/bootanimation/600.zip
+deleted file mode 100644
+index f7662ce..0000000
+Binary files a/prebuilt/common/bootanimation/600.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/720.zip b/prebuilt/common/bootanimation/720.zip
+index aaabf4f..d2da3ed 100644
+Binary files a/prebuilt/common/bootanimation/720.zip and b/prebuilt/common/bootanimation/720.zip differ
+diff --git a/prebuilt/common/bootanimation/768.zip b/prebuilt/common/bootanimation/768.zip
+deleted file mode 100644
+index f8521dd..0000000
+Binary files a/prebuilt/common/bootanimation/768.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/800.zip b/prebuilt/common/bootanimation/800.zip
+deleted file mode 100644
+index 08d5785..0000000
+Binary files a/prebuilt/common/bootanimation/800.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/halfres/1080.zip b/prebuilt/common/bootanimation/halfres/1080.zip
+deleted file mode 100644
+index efb45ca..0000000
+Binary files a/prebuilt/common/bootanimation/halfres/1080.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/halfres/1200.zip b/prebuilt/common/bootanimation/halfres/1200.zip
+deleted file mode 100644
+index d63a0b0..0000000
+Binary files a/prebuilt/common/bootanimation/halfres/1200.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/halfres/1440.zip b/prebuilt/common/bootanimation/halfres/1440.zip
+deleted file mode 100644
+index eba6346..0000000
+Binary files a/prebuilt/common/bootanimation/halfres/1440.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/halfres/1536.zip b/prebuilt/common/bootanimation/halfres/1536.zip
+deleted file mode 100644
+index 3f6da27..0000000
+Binary files a/prebuilt/common/bootanimation/halfres/1536.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/halfres/1600.zip b/prebuilt/common/bootanimation/halfres/1600.zip
+deleted file mode 100644
+index 61132a9..0000000
+Binary files a/prebuilt/common/bootanimation/halfres/1600.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/halfres/240.zip b/prebuilt/common/bootanimation/halfres/240.zip
+deleted file mode 100644
+index 59735d0..0000000
+Binary files a/prebuilt/common/bootanimation/halfres/240.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/halfres/320.zip b/prebuilt/common/bootanimation/halfres/320.zip
+deleted file mode 100644
+index 7497da0..0000000
+Binary files a/prebuilt/common/bootanimation/halfres/320.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/halfres/360.zip b/prebuilt/common/bootanimation/halfres/360.zip
+deleted file mode 100644
+index f1247f7..0000000
+Binary files a/prebuilt/common/bootanimation/halfres/360.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/halfres/480.zip b/prebuilt/common/bootanimation/halfres/480.zip
+deleted file mode 100644
+index 44db576..0000000
+Binary files a/prebuilt/common/bootanimation/halfres/480.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/halfres/540.zip b/prebuilt/common/bootanimation/halfres/540.zip
+deleted file mode 100644
+index 35b631c..0000000
+Binary files a/prebuilt/common/bootanimation/halfres/540.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/halfres/600.zip b/prebuilt/common/bootanimation/halfres/600.zip
+deleted file mode 100644
+index ec352f7..0000000
+Binary files a/prebuilt/common/bootanimation/halfres/600.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/halfres/768.zip b/prebuilt/common/bootanimation/halfres/768.zip
+deleted file mode 100644
+index f87e834..0000000
+Binary files a/prebuilt/common/bootanimation/halfres/768.zip and /dev/null differ
+diff --git a/prebuilt/common/bootanimation/halfres/800.zip b/prebuilt/common/bootanimation/halfres/800.zip
+deleted file mode 100644
+index 051db72..0000000
+Binary files a/prebuilt/common/bootanimation/halfres/800.zip and /dev/null differ

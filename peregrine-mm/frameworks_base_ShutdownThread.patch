@@ -1,0 +1,16 @@
+diff --git a/data/sounds/ringtones/ogg/Andromeda.ogg b/data/sounds/ringtones/ogg/Andromeda.ogg
+index 26c230e..1aef6e3 100644
+Binary files a/data/sounds/ringtones/ogg/Andromeda.ogg and b/data/sounds/ringtones/ogg/Andromeda.ogg differ
+diff --git a/services/core/java/com/android/server/power/ShutdownThread.java b/services/core/java/com/android/server/power/ShutdownThread.java
+index 36a9ca2..ddc4957 100644
+--- a/services/core/java/com/android/server/power/ShutdownThread.java
++++ b/services/core/java/com/android/server/power/ShutdownThread.java
+@@ -98,7 +98,7 @@ public final class ShutdownThread extends Thread {
+     private static final String SOFT_REBOOT = "soft_reboot";
+ 
+     // length of vibration before shutting down
+-    private static final int SHUTDOWN_VIBRATE_MS = 500;
++    private static final int SHUTDOWN_VIBRATE_MS = 50;
+ 
+     // state tracking
+     private static Object sIsStartedGuard = new Object();
