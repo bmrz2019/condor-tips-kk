@@ -1,0 +1,25 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+<remote  name="gh"
+           fetch="https://github.com" />
+
+<!--Layers Specific-->
+<remove-project name="platform/packages/apps/CellBroadcastReceiver" />
+<project name="TechExhibeo/platform_packages_apps_CellBroadcastReceiver" path="packages/apps/CellBroadcastReceiver" remote="gh" revision="mm6.0" />
+
+<remove-project name="platform/packages/apps/DeskClock" />
+<project name="TechExhibeo/platform_packages_apps_DeskClock" path="packages/apps/DeskClock" remote="gh" revision="mm6.0" />
+
+<remove-project name="platform/packages/apps/Dialer" />
+<project name="TechExhibeo/platform_packages_apps_Dialer" path="packages/apps/Dialer" remote="gh" revision="mm6.0" />
+
+<remove-project name="platform/packages/apps/InCallUI" />
+<project name="TechExhibeo/platform_packages_apps_InCallUI" path="packages/apps/InCallUI" remote="gh" revision="mm6.0" /> 
+
+<remove-project name="platform/packages/apps/Contacts" />
+<project name="TechExhibeo/platform_packages_apps_Contacts" path="packages/apps/Contacts" remote="gh" revision="mm6.0" />
+
+<remove-project name="platform/packages/apps/ContactsCommon" />
+<project name="TechExhibeo/platform_packages_apps_ContactsCommon" path="packages/apps/ContactsCommon" remote="gh" revision="mm6.0" /> 
+</manifest>
