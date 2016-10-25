@@ -1,0 +1,28 @@
+diff --git a/core/java/com/android/internal/os/RuntimeInit.java b/core/java/com/android/internal/os/RuntimeInit.java
+index 3377189..fc46af7 100644
+--- a/core/java/com/android/internal/os/RuntimeInit.java
++++ b/core/java/com/android/internal/os/RuntimeInit.java
+@@ -169,20 +169,20 @@ public class RuntimeInit {
+         StringBuilder result = new StringBuilder(64);
+         result.append("Dalvik/");
+         result.append(System.getProperty("java.vm.version")); // such as 1.1.0
+-        result.append(" (Linux; U; Android ");
++        result.append(" (iOS; U; Apple ");
+ 
+         String version = Build.VERSION.RELEASE; // "1.0" or "3.4b5"
+         result.append(version.length() > 0 ? version : "1.0");
+ 
+         // add the model for the release build
+         if ("REL".equals(Build.VERSION.CODENAME)) {
+-            String model = Build.MODEL;
++            String model = "A1429";
+             if (model.length() > 0) {
+                 result.append("; ");
+                 result.append(model);
+             }
+         }
+-        String id = Build.ID; // "MASTER" or "M4-rc20"
++        String id = "8A293"; // "MASTER" or "M4-rc20"
+         if (id.length() > 0) {
+             result.append(" Build/");
+             result.append(id);
