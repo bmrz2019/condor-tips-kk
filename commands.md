@@ -27,34 +27,44 @@ brunch device_codename
 side-load the ZIP
 
 ```
-eat ZIP_without_path
+eat
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+compile and deploy
 
 ```
-Give an example
+omnom
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
+Go to output dir
 
 ```
-Give an example
+cout
 ```
+
+clean and make
+```
+cmka Jelly
+```
+
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+copy the apk after compiling
+```
+dopush mmm packages/apps/
+```
+
+
+Warning overwrites everything
+adb sync directory
+```
+  adb sync [ <directory> ]     - copy host->device only if changed
+                                 (-l means list but don't copy)
+                                 (see 'adb help all')
+
+```
+
 
 ## Built With
 
