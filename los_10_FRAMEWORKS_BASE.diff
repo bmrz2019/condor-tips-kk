@@ -1,0 +1,283 @@
+diff --git a/core/res/AndroidManifest.xml b/core/res/AndroidManifest.xml
+index 7bcd7a04..2c0c436e 100644
+--- a/core/res/AndroidManifest.xml
++++ b/core/res/AndroidManifest.xml
+@@ -2655,6 +2655,13 @@
+         android:description="@string/permdesc_getPackageSize"
+         android:protectionLevel="normal" />
+ 
++    <!-- @hide Allows an application to change the package signature as
++        seen by applications -->
++    <permission android:name="android.permission.FAKE_PACKAGE_SIGNATURE"
++        android:protectionLevel="dangerous"
++        android:label="@string/permlab_fakePackageSignature"
++        android:description="@string/permdesc_fakePackageSignature" />
++
+     <!-- @deprecated No longer useful, see
+          {@link android.content.pm.PackageManager#addPackageToPreferred}
+          for details. -->
+diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
+index a84d23b6..89754ba1 100644
+--- a/core/res/res/values/config.xml
++++ b/core/res/res/values/config.xml
+@@ -1875,6 +1875,8 @@
+     <string-array name="config_locationProviderPackageNames" translatable="false">
+         <!-- The standard AOSP fused location provider -->
+         <item>com.android.location.fused</item>
++        <!-- The (faked) microg fused location provider (a free reimplementation) -->
++        <item>com.google.android.gms</item>
+     </string-array>
+ 
+     <!-- This string array can be overriden to enable test location providers initially. -->
+diff --git a/core/res/res/values/strings.xml b/core/res/res/values/strings.xml
+index 7e975f68..e997d3ca 100644
+--- a/core/res/res/values/strings.xml
++++ b/core/res/res/values/strings.xml
+@@ -830,6 +830,11 @@
+ 
+     <!--  Permissions -->
+ 
++    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
++    <string name="permlab_fakePackageSignature">Spoof package signature</string>
++    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
++    <string name="permdesc_fakePackageSignature">Allows the app to pretend to be a different app. Malicious applications might be able to use this to access private application data. Legitimate uses include an emulator pretending to be what it emulates. Grant this permission with caution only!</string>
++
+     <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+     <string name="permlab_statusBar">disable or modify status bar</string>
+     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+diff --git a/data/sounds/AllAudio.mk b/data/sounds/AllAudio.mk
+index c6c7d3bc..f74d2ef4 100644
+--- a/data/sounds/AllAudio.mk
++++ b/data/sounds/AllAudio.mk
+@@ -15,6 +15,7 @@
+ LOCAL_PATH := frameworks/base/data/sounds
+ 
+ PRODUCT_COPY_FILES += \
++    $(LOCAL_PATH)/alarms/ogg/$(fn).ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/$(fn).ogg) \
+     $(LOCAL_PATH)/Alarm_Beep_01.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Alarm_Beep_01.ogg \
+     $(LOCAL_PATH)/Alarm_Beep_02.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Alarm_Beep_02.ogg \
+     $(LOCAL_PATH)/Alarm_Beep_03.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Alarm_Beep_03.ogg \
+@@ -38,6 +39,7 @@ PRODUCT_COPY_FILES += \
+     $(LOCAL_PATH)/alarms/ogg/Plutonium.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Plutonium.ogg \
+     $(LOCAL_PATH)/alarms/ogg/Promethium.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Promethium.ogg \
+     $(LOCAL_PATH)/alarms/ogg/Scandium.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Scandium.ogg \
++    $(LOCAL_PATH)/notifications/ogg/$(fn)_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/$(fn).ogg) \
+     $(LOCAL_PATH)/notifications/ogg/Adara.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Adara.ogg \
+     $(LOCAL_PATH)/notifications/Aldebaran.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Aldebaran.ogg \
+     $(LOCAL_PATH)/notifications/Altair.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Altair.ogg \
+@@ -97,7 +99,7 @@ PRODUCT_COPY_FILES += \
+     $(LOCAL_PATH)/notifications/ogg/Syrma.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Syrma.ogg \
+     $(LOCAL_PATH)/notifications/TaDa.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/TaDa.ogg \
+     $(LOCAL_PATH)/notifications/ogg/Talitha.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Talitha.ogg \
+-    $(LOCAL_PATH)/notifications/ogg/Tejat.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Tejat.ogg \
++    $(LOCAL_PATH)/notifications/ogg/Tejat_proc48.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Tejat.ogg \
+     $(LOCAL_PATH)/notifications/ogg/Thallium.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Thallium.ogg \
+     $(LOCAL_PATH)/notifications/Tinkerbell.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Tinkerbell.ogg \
+     $(LOCAL_PATH)/notifications/ogg/Upsilon.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Upsilon.ogg \
+@@ -113,6 +115,7 @@ PRODUCT_COPY_FILES += \
+     $(LOCAL_PATH)/notifications/sirius.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/sirius.ogg \
+     $(LOCAL_PATH)/notifications/tweeters.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/tweeters.ogg \
+     $(LOCAL_PATH)/notifications/vega.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/vega.ogg \
++    $(LOCAL_PATH)/ringtones/ogg/$(fn)_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/$(fn).ogg) \
+     $(LOCAL_PATH)/ringtones/ANDROMEDA.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/ANDROMEDA.ogg \
+     $(LOCAL_PATH)/ringtones/ogg/Andromeda.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/Andromeda.ogg \
+     $(LOCAL_PATH)/ringtones/ogg/Aquila.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/Aquila.ogg \
+@@ -215,27 +218,24 @@ PRODUCT_COPY_FILES += \
+     $(LOCAL_PATH)/newwavelabs/World.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/World.ogg \
+     $(LOCAL_PATH)/ringtones/ogg/Zeta.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/Zeta.ogg \
+     $(LOCAL_PATH)/ringtones/hydra.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/hydra.ogg \
++    $(LOCAL_PATH)/effects/ogg/$(fn)_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/$(fn).ogg) \
++    $(LOCAL_PATH)/effects/ogg/ChargingStarted.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/ChargingStarted.ogg \
+     $(LOCAL_PATH)/effects/ogg/Dock.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/Dock.ogg \
+     $(LOCAL_PATH)/effects/ogg/Effect_Tick_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/Effect_Tick.ogg \
+-    $(LOCAL_PATH)/effects/ogg/KeypressDelete_120_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/KeypressDelete.ogg \
+-    $(LOCAL_PATH)/effects/ogg/KeypressReturn_120_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/KeypressReturn.ogg \
+-    $(LOCAL_PATH)/effects/ogg/KeypressSpacebar_120_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/KeypressSpacebar.ogg \
+-    $(LOCAL_PATH)/effects/ogg/KeypressStandard_120_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/KeypressStandard.ogg \
+-    $(LOCAL_PATH)/effects/ogg/KeypressInvalid_120_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/KeypressInvalid.ogg \
+-    $(LOCAL_PATH)/effects/ogg/Lock.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/Lock.ogg \
++    $(LOCAL_PATH)/effects/ogg/InCallNotification.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/InCallNotification.ogg \
++    $(LOCAL_PATH)/effects/ogg/KeypressDelete_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/KeypressDelete.ogg \
++    $(LOCAL_PATH)/effects/ogg/KeypressInvalid_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/KeypressInvalid.ogg \
++    $(LOCAL_PATH)/effects/ogg/KeypressReturn_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/KeypressReturn.ogg \
++    $(LOCAL_PATH)/effects/ogg/KeypressSpacebar_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/KeypressSpacebar.ogg \
++    $(LOCAL_PATH)/effects/ogg/KeypressStandard_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/KeypressStandard.ogg \
++    $(LOCAL_PATH)/effects/ogg/Lock_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/Lock.ogg \
+     $(LOCAL_PATH)/effects/ogg/LowBattery.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/LowBattery.ogg \
+-    $(LOCAL_PATH)/effects/ogg/Undock.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/Undock.ogg \
+-    $(LOCAL_PATH)/effects/ogg/Unlock.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/Unlock.ogg \
+     $(LOCAL_PATH)/effects/ogg/Trusted_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/Trusted.ogg \
+-    $(LOCAL_PATH)/effects/ogg/VideoRecord_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/VideoRecord.ogg \
+-    $(LOCAL_PATH)/effects/ogg/VideoStop_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/VideoStop.ogg \
+-    $(LOCAL_PATH)/effects/ogg/WirelessChargingStarted.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/WirelessChargingStarted.ogg \
+-    $(LOCAL_PATH)/effects/ogg/camera_click_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/camera_click.ogg \
++    $(LOCAL_PATH)/effects/ogg/Undock.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/Undock.ogg \
++    $(LOCAL_PATH)/effects/ogg/Unlock_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/Unlock.ogg \
++    $(LOCAL_PATH)/effects/ogg/VideoRecord.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/VideoRecord.ogg \
++    $(LOCAL_PATH)/effects/ogg/VideoStop.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/VideoStop.ogg \
++    $(LOCAL_PATH)/effects/material/ogg/WirelessChargingStarted_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/WirelessChargingStarted.ogg \
++    $(LOCAL_PATH)/effects/material/ogg/camera_click_48k.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/camera_click.ogg \
+     $(LOCAL_PATH)/effects/ogg/camera_focus.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/camera_focus.ogg \
+-    $(LOCAL_PATH)/effects/ogg/ChargingStarted.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/ChargingStarted.ogg \
+-    $(LOCAL_PATH)/effects/ogg/InCallNotification.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/InCallNotification.ogg \
+-    $(LOCAL_PATH)/effects/ogg/NFCFailure.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/NFCFailure.ogg \
+-    $(LOCAL_PATH)/effects/ogg/NFCInitiated.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/NFCInitiated.ogg \
+-    $(LOCAL_PATH)/effects/ogg/NFCSuccess.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/NFCSuccess.ogg \
+-    $(LOCAL_PATH)/effects/ogg/NFCTransferComplete.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/NFCTransferComplete.ogg \
+-    $(LOCAL_PATH)/effects/ogg/NFCTransferInitiated.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ui/NFCTransferInitiated.ogg \
++
+diff --git a/data/sounds/alarms/ogg/Argon.ogg b/data/sounds/alarms/ogg/Argon.ogg
+index 35addf57..f047bb93 100644
+Binary files a/data/sounds/alarms/ogg/Argon.ogg and b/data/sounds/alarms/ogg/Argon.ogg differ
+diff --git a/data/sounds/notifications/Antares.ogg b/data/sounds/notifications/Antares.ogg
+index f4f94d74..f047bb93 100644
+Binary files a/data/sounds/notifications/Antares.ogg and b/data/sounds/notifications/Antares.ogg differ
+diff --git a/data/sounds/ringtones/ANDROMEDA.ogg b/data/sounds/ringtones/ANDROMEDA.ogg
+index 8f6bd3e9..f047bb93 100644
+Binary files a/data/sounds/ringtones/ANDROMEDA.ogg and b/data/sounds/ringtones/ANDROMEDA.ogg differ
+diff --git a/data/sounds/ringtones/ogg/Andromeda.ogg b/data/sounds/ringtones/ogg/Andromeda.ogg
+index 26c230e1..1aef6e3b 100644
+Binary files a/data/sounds/ringtones/ogg/Andromeda.ogg and b/data/sounds/ringtones/ogg/Andromeda.ogg differ
+diff --git a/packages/SystemUI/res/values/config.xml b/packages/SystemUI/res/values/config.xml
+index f99dc023..5d004281 100644
+--- a/packages/SystemUI/res/values/config.xml
++++ b/packages/SystemUI/res/values/config.xml
+@@ -109,7 +109,7 @@
+ 
+     <!-- The default tiles to display in QuickSettings -->
+     <string name="quick_settings_tiles_default" translatable="false">
+-        wifi,bt,dnd,flashlight,rotation,battery,cell,airplane,cast
++        wifi,bt,rotation,airplane,volume_panel,location
+     </string>
+ 
+     <!-- The minimum number of tiles to display in QuickSettings -->
+@@ -117,7 +117,7 @@
+ 
+     <!-- Tiles native to System UI. Order should match "quick_settings_tiles_default" -->
+     <string name="quick_settings_tiles_stock" translatable="false">
+-        wifi,cell,battery,dnd,flashlight,rotation,bt,airplane,nfc,location,hotspot,inversion,saver,dark,work,cast,night,adb_network,ambient_display,caffeine,heads_up,livedisplay,aod,reading_mode,sync,usb_tether,volume_panel,vpn,profiles,powershare
++        wifi,bt,rotation,airplane,volume_panel,location,cell,battery,dnd,flashlight,nfc,hotspot,inversion,saver,dark,work,cast,night,adb_network,ambient_display,caffeine,heads_up,livedisplay,aod,reading_mode,sync,usb_tether,vpn,profiles,powershare
+     </string>
+ 
+     <!-- The tiles to display in QuickSettings -->
+diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
+index caa910e8..5e715d73 100644
+--- a/packages/SystemUI/res/values/dimens.xml
++++ b/packages/SystemUI/res/values/dimens.xml
+@@ -76,7 +76,7 @@
+     <dimen name="status_bar_clock_size">14sp</dimen>
+ 
+     <!-- The starting padding for the clock in the status bar. -->
+-    <dimen name="status_bar_clock_starting_padding">7dp</dimen>
++    <dimen name="status_bar_clock_starting_padding">2dp</dimen>
+ 
+     <!-- The end padding for the clock in the status bar. -->
+     <dimen name="status_bar_clock_end_padding">0dp</dimen>
+@@ -85,7 +85,7 @@
+     <dimen name="status_bar_left_clock_starting_padding">0dp</dimen>
+ 
+     <!-- End padding for left-aligned status bar clock -->
+-    <dimen name="status_bar_left_clock_end_padding">7dp</dimen>
++    <dimen name="status_bar_left_clock_end_padding">2dp</dimen>
+ 
+     <!-- Spacing after the wifi signals that is present if there are any icons following it. -->
+     <dimen name="status_bar_wifi_signal_spacer_width">2.5dp</dimen>
+@@ -820,10 +820,10 @@
+     <dimen name="fake_shadow_size">8dp</dimen>
+ 
+     <!-- Starting margin before the signal cluster -->
+-    <dimen name="signal_cluster_margin_start">2.5dp</dimen>
++    <dimen name="signal_cluster_margin_start">2dp</dimen>
+ 
+     <!-- Padding between signal cluster and battery icon -->
+-    <dimen name="signal_cluster_battery_padding">6dp</dimen>
++    <dimen name="signal_cluster_battery_padding">2dp</dimen>
+ 
+     <!-- Padding for signal cluster and battery icon when there are not icons in signal cluster -->
+     <dimen name="no_signal_cluster_battery_padding">3dp</dimen>
+diff --git a/packages/SystemUI/src/com/android/keyguard/EmergencyButton.java b/packages/SystemUI/src/com/android/keyguard/EmergencyButton.java
+index 210b82d1..b37c6e3b 100644
+--- a/packages/SystemUI/src/com/android/keyguard/EmergencyButton.java
++++ b/packages/SystemUI/src/com/android/keyguard/EmergencyButton.java
+@@ -201,25 +201,12 @@ public class EmergencyButton extends Button {
+             } else {
+                 final boolean simLocked = KeyguardUpdateMonitor.getInstance(mContext)
+                         .isSimPinVoiceSecure();
+-                if (simLocked) {
+-                    // Some countries can't handle emergency calls while SIM is locked.
+-                    visible = mEnableEmergencyCallWhileSimLocked;
+-                } else {
+-                    // Only show if there is a secure screen (pin/pattern/SIM pin/SIM puk);
+-                    visible = mLockPatternUtils.isSecure(KeyguardUpdateMonitor.getCurrentUser());
+-                }
++                    visible = false;
+             }
+         }
++        visible = false;
+         if (visible) {
+             setVisibility(View.VISIBLE);
+-
+-            int textId;
+-            if (isInCall()) {
+-                textId = com.android.internal.R.string.lockscreen_return_to_call;
+-            } else {
+-                textId = com.android.internal.R.string.lockscreen_emergency_call;
+-            }
+-            setText(textId);
+         } else {
+             setVisibility(View.GONE);
+         }
+diff --git a/services/core/java/com/android/server/pm/PackageManagerService.java b/services/core/java/com/android/server/pm/PackageManagerService.java
+index 9acdb265..7e5aa47e 100644
+--- a/services/core/java/com/android/server/pm/PackageManagerService.java
++++ b/services/core/java/com/android/server/pm/PackageManagerService.java
+@@ -4203,8 +4203,9 @@ public class PackageManagerService extends IPackageManager.Stub
+                 });
+             }
+ 
+-            PackageInfo packageInfo = PackageParser.generatePackageInfo(p, gids, flags,
+-                    ps.firstInstallTime, ps.lastUpdateTime, permissions, state, userId);
++            PackageInfo packageInfo = mayFakeSignature(p, PackageParser.generatePackageInfo(p, gids, flags,
++                ps.firstInstallTime, ps.lastUpdateTime, permissions, state, userId),
++                permissions);
+ 
+             if (packageInfo == null) {
+                 return null;
+@@ -4240,6 +4241,24 @@ public class PackageManagerService extends IPackageManager.Stub
+         }
+     }
+ 
++    private PackageInfo mayFakeSignature(PackageParser.Package p, PackageInfo pi,
++            Set<String> permissions) {
++        try {
++            if (permissions.contains("android.permission.FAKE_PACKAGE_SIGNATURE")
++                    && p.applicationInfo.targetSdkVersion > Build.VERSION_CODES.LOLLIPOP_MR1
++                    && p.mAppMetaData != null) {
++                String sig = p.mAppMetaData.getString("fake-signature");
++                if (sig != null) {
++                    pi.signatures = new Signature[] {new Signature(sig)};
++                }
++            }
++        } catch (Throwable t) {
++            // We should never die because of any failures, this is system code!
++            Log.w("PackageManagerService.FAKE_PACKAGE_SIGNATURE", t);
++    }
++        return pi;
++    }
++
+     @Override
+     public void checkPackageStartable(String packageName, int userId) {
+         final int callingUid = Binder.getCallingUid();
+diff --git a/services/core/java/com/android/server/power/ShutdownThread.java b/services/core/java/com/android/server/power/ShutdownThread.java
+index 4d1b904d..7197ca13 100644
+--- a/services/core/java/com/android/server/power/ShutdownThread.java
++++ b/services/core/java/com/android/server/power/ShutdownThread.java
+@@ -75,7 +75,7 @@ public final class ShutdownThread extends Thread {
+     private static final int MOUNT_SERVICE_STOP_PERCENT = 20;
+ 
+     // length of vibration before shutting down
+-    private static final int SHUTDOWN_VIBRATE_MS = 500;
++    private static final int SHUTDOWN_VIBRATE_MS = 5;
+ 
+     // state tracking
+     private static final Object sIsStartedGuard = new Object();
